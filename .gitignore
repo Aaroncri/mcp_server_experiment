@@ -1,0 +1,92 @@
+# --- Terraform ---
+# Ignore local state files and backups. These can contain sensitive data.
+# Your real state should be managed remotely (e.g., in an S3 bucket).
+*.tfstate
+*.tfstate.*
+
+# Ignore the local cache for provider plugins and modules.
+# This directory is recreated by 'terraform init'.
+.terraform/
+
+# Ignore the dependency lock file.
+# NOTE: It's a best practice to *commit* this file if you work in a team
+# to ensure everyone uses the same provider versions. Ignoring it is fine
+# for a solo project to ensure you get updates on 'init'.
+# .terraform.lock.hcl
+
+# Ignore crash log files
+crash.log
+crash.*.log
+
+# Ignore sensitive variable files.
+# Use a non-sensitive example file instead (e.g., terraform.tfvars.example).
+*.tfvars
+*.tfvars.json
+
+# Ignore generated override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore local terraform configuration files
+.terraformrc
+terraform.rc
+
+
+# --- Python ---
+# Ignore virtual environment directories
+venv/
+env/
+.venv/
+.env/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore distribution / packaging artifacts
+build/
+dist/
+sdist/
+*.egg-info/
+*.egg
+
+# Ignore installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+
+# --- Secrets & Environment Variables ---
+# Ignore local environment variables files. These often contain secrets.
+.env
+.env.*
+# Exception for example files, which ARE safe to commit
+!.env.example
+!.env.sample
+
+
+# --- General & OS-specific ---
+# Ignore macOS specific files
+.DS_Store
+
+# Ignore Windows specific files
+Thumbs.db
+desktop.ini
+
+# Ignore temporary files from editors like Vim
+*~
+
+
+# --- IDE & Editor directories ---
+# Ignore Visual Studio Code configuration
+.vscode/
+
+# Ignore JetBrains (PyCharm, IntelliJ) configuration
+.idea/
+
+# Ignore Sublime Text project files
+*.sublime-project
+*.sublime-workspace
