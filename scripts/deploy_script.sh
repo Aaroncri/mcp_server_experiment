@@ -4,7 +4,7 @@ set -euo pipefail
 KEY_NAME="langflow_ssh_key"
 KEY_PATH="$HOME/.ssh/$KEY_NAME"
 PUB_KEY_PATH="${KEY_PATH}.pub"
-SSH_CONFIG_FILE="$HOME/.ssh/config.langflow"
+SSH_CONFIG_FILE="$HOME/.ssh/config.mcp"
 MAIN_SSH_CONFIG="$HOME/.ssh/config"
 
 # 1. Generate SSH key if it doesn't exist
@@ -22,7 +22,8 @@ terraform apply -auto-approve \
 
 # 3. Fetch IPs and user from Terraform output
 JUMP_IP=$(terraform output -raw jump_box_public_ip)
-LANGFLOW_IP=$(terraform output -raw langflow_private_ip)
+AGENT_IP=$(terraform output -raw agent_private_ip)
+MCP_IP=$(terraform output -raw mcp_server_private_ip)
 USER=$(terraform output -raw jump_box_user 2>/dev/null || echo "ubuntu")
 
 # 4. Write SSH config entries to a dedicated config include
@@ -33,8 +34,14 @@ Host jump
     IdentityFile $KEY_PATH
     ForwardAgent yes
 
-Host langflow
-    HostName $LANGFLOW_IP
+Host agent
+    HostName $AGENT_IP
+    User $USER
+    IdentityFile $KEY_PATH
+    ProxyJump jump
+
+Host mcp
+    HostName $MCP_IP
     User $USER
     IdentityFile $KEY_PATH
     ProxyJump jump
@@ -53,4 +60,4 @@ else
     echo "Created new ~/.ssh/config with include."
 fi
 
-echo "Done! You can now ssh jump or ssh langflow."
+echo "Done! You can now ssh jump, ssh agent, or ssh mcp."

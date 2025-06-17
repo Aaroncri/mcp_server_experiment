@@ -30,7 +30,7 @@ resource "aws_route_table" "private_route_table" {
   # Send all outbound traffic from the private subnet through the NAT gateway
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.langflow_nat.id
+    nat_gateway_id = aws_nat_gateway.main_nat.id
   }
 
   tags = {
