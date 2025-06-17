@@ -11,16 +11,16 @@ resource "aws_eip" "nat_eip" {
   vpc = true
 
   tags = {
-    Name = "langflow-nat-eip"
+    Name = "nat-eip"
   }
 }
 
 # Create the NAT gateway in the public subnet
-resource "aws_nat_gateway" "langflow_nat" {
+resource "aws_nat_gateway" "main_nat" {
   allocation_id = aws_eip.nat_eip.id
   subnet_id     = aws_subnet.main-public.id
 
   tags = {
-    Name = "langflow-nat-gateway"
+    Name = "main-nat-gateway"
   }
 }

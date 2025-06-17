@@ -55,14 +55,14 @@ resource "aws_security_group_rule" "jump_egress_https" {
   cidr_blocks       = ["0.0.0.0/0"]
 }
 # Egress SSH
-resource "aws_security_group_rule" "jump_egress_ssh_to_langflow" {
+resource "aws_security_group_rule" "jump_egress_ssh_to_private" {
   type              = "egress"
-  description       = "Allow SSH to private Langflow subnet"
+  description       = "Allow SSH to private subnet containing agent and mcp server"
   from_port         = 22
   to_port           = 22
   protocol          = "tcp"
   security_group_id = aws_security_group.SG_jump.id
-  cidr_blocks       = [var.private_langflow_subnet_cidr_block]
+  cidr_blocks       = [var.private_subnet_cidr_block]
 }
 
 
@@ -70,13 +70,13 @@ resource "aws_security_group_rule" "jump_egress_ssh_to_langflow" {
 ##########      Langflow Security Group      ############
 #########################################################
 
-resource "aws_security_group" "SG_langflow" {
+resource "aws_security_group" "SG_agent" {
   name        = "SG-langflow"
-  description = "Security Group for the Langflow instance. SSH & UI inbound; egress limited to DNS/HTTP/HTTPS."
+  description = "Security Group for the agent instance. SSH & UI inbound; egress limited to DNS/HTTP/HTTPS."
   vpc_id      = aws_vpc.main.id
 
   tags = {
-    Name = "SG-langflow"
+    Name = "SG-agent"
   }
 }
 
