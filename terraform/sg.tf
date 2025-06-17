@@ -87,7 +87,7 @@ resource "aws_vpc_security_group_ingress_rule" "agent_allow_ssh" {
   ip_protocol       = "tcp"
   from_port         = 22
   to_port           = 22
-  source_security_group_id = aws_security_group.SG_jump.id #Only allow ssh from jump box. 
+  referenced_security_group_id = aws_security_group.SG_jump.id #Only allow ssh from jump box. 
 }
 
 # Ingress: agent UI port
@@ -154,7 +154,7 @@ resource "aws_vpc_security_group_ingress_rule" "mcp_allow_ssh" {
   ip_protocol       = "tcp"
   from_port         = 22
   to_port           = 22
-  source_security_group_id = aws_security_group.SG_jump.id #Only allow ssh from jump box. 
+  referenced_security_group_id = aws_security_group.SG_jump.id #Only allow ssh from jump box. 
 }
 
 # Ingress: mcp UI port
