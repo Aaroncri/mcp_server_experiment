@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-KEY_NAME="langflow_ssh_key"
+KEY_NAME="mcp_project_key"
 KEY_PATH="$HOME/.ssh/$KEY_NAME"
 PUB_KEY_PATH="${KEY_PATH}.pub"
 SSH_CONFIG_FILE="$HOME/.ssh/config.mcp"
@@ -23,7 +23,7 @@ terraform apply -auto-approve \
 # 3. Fetch IPs and user from Terraform output
 JUMP_IP=$(terraform output -raw jump_box_public_ip)
 AGENT_IP=$(terraform output -raw agent_private_ip)
-MCP_IP=$(terraform output -raw mcp_server_private_ip)
+MCP_IP=$(terraform output -raw mcp_private_ip)
 USER=$(terraform output -raw jump_box_user 2>/dev/null || echo "ubuntu")
 
 # 4. Write SSH config entries to a dedicated config include
