@@ -9,6 +9,7 @@ resource "aws_instance" "jump_box" {
   vpc_security_group_ids = [aws_security_group.SG_jump.id]
   subnet_id              = aws_subnet.main-public.id
   private_ip             = var.jump_box_private_ip
+  user_data = file("./templates/setup-jump.sh")
 
   tags = {
     Name = "Jump Box"
@@ -64,7 +65,7 @@ resource "aws_instance" "agent" {
     Name = "Agent"
   }
 
-  user_data = file("./scripts/setup-agent.sh")
+  user_data = file("./templates/setup-agent.sh")
 }
 
 output "agent_private_ip" {
@@ -93,7 +94,7 @@ resource "aws_instance" "mcp" {
     Name = "MCP Server"
   }
 
-  user_data = file("./scripts/setup-mcp.sh")
+  user_data = file("./templates/setup-mcp.sh")
 }
 
 output "mcp_private_ip" {
