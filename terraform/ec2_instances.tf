@@ -41,7 +41,7 @@ Then connect to the jump box with agent forwarding:
 
   ssh -A -i ~/.ssh/mcp_project_key ubuntu@<jump-box-public-ip>
 
-This lets you securely SSH from the jump box into the other instances in the private subnet.
+This lets you securely SSH from the jump box into the other instance in the private subnet.
 */
 
 
@@ -80,26 +80,26 @@ output "agent_user" {
 #########################################################
 
 
-resource "aws_instance" "mcp_server" {
+resource "aws_instance" "mcp" {
   depends_on = [aws_nat_gateway.main_nat]
   ami                    = "ami-020cba7c55df1f615"
   instance_type          = "t2.large"
   key_name               = aws_key_pair.mcp_project_key.key_name
-  vpc_security_group_ids = [aws_security_group.SG_mcp_server.id]
+  vpc_security_group_ids = [aws_security_group.SG_mcp.id]
   subnet_id              = aws_subnet.main-private.id
-  private_ip             = var.mcp_server_private_ip
+  private_ip             = var.mcp_private_ip
 
   tags = {
     Name = "MCP Server"
   }
 
-  user_data = file("./scripts/setup-agent.sh")
+  user_data = file("./scripts/setup-mcp.sh")
 }
 
-output "agent_private_ip" {
-  value = aws_instance.mcp_server.private_ip
+output "mcp_private_ip" {
+  value = aws_instance.mcp.private_ip
 }
 
-output "agent_user" {
+output "mcp_user" {
   value = "ubuntu"  # or use a variable if needed
 }

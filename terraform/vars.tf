@@ -29,8 +29,8 @@ variable "agent_private_ip" {
   default     = "10.0.2.30"
 }
 
-variable "mcp_server_private_ip" {
-  description = "Hard-coded IP for mcp_server instance"
+variable "mcp_private_ip" {
+  description = "Hard-coded IP for mcp instance"
   type        = string
   default     = "10.0.2.31"
 }
