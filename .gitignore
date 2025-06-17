@@ -1,3 +1,5 @@
+#Dump location for the codebase:
+.codebase.md
 # --- Terraform ---
 # Ignore local state files and backups. These can contain sensitive data.
 # Your real state should be managed remotely (e.g., in an S3 bucket).
