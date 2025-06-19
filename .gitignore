@@ -38,10 +38,10 @@ terraform.rc
 
 # --- Python ---
 # Ignore virtual environment directories
-venv/
-env/
-.venv/
-.env/
+src/venv/
+src/env/
+src/.venv/
+src/.env/
 
 # Ignore Python cache files
 __pycache__/
